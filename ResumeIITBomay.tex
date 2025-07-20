@@ -1,118 +1,323 @@
-\documentclass[a4paper,10pt]{article}
-%-----------------------------------------------------------
-\usepackage[top=0.75in, bottom=0.75in, left=0.55in, right=0.85in]{geometry}
-\usepackage{graphicx}
-\usepackage{url}
-\usepackage{palatino}
+%-------------------------
+% Resume in Latex
+% Author
+% License : MIT
+%------------------------
+
+%---- Required Packages and Functions ----
+
+\documentclass[a4paper,11pt]{article}
+\usepackage{latexsym}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{ragged2e}
+\usepackage[empty]{fullpage}
+\usepackage{wrapfig}
+\usepackage{lipsum}
 \usepackage{tabularx}
-\fontfamily{SansSerif}
-\selectfont
-
+\usepackage{titlesec}
+\usepackage{geometry}
+\usepackage{marvosym}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{fontawesome5}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{cfr-lm}
 \usepackage[T1]{fontenc}
-\usepackage
-%[ansinew]
-[utf8]
-{inputenc}
+\usepackage{hyperref}
+\usepackage{fontawesome}
+\setlength{\multicolsep}{0pt} 
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\geometry{left=1.4cm, top=0.8cm, right=1.2cm, bottom=1cm}
+% Adjust margins
+%\addtolength{\oddsidemargin}{-0.5in}
+%\addtolength{\evensidemargin}{-0.5in}
+%\addtolength{\textwidth}{1in}
+\usepackage[most]{tcolorbox}
+\tcbset{
+	frame code={}
+	center title,
+	left=0pt,
+	right=0pt,
+	top=0pt,
+	bottom=0pt,
+	colback=gray!20,
+	colframe=white,
+	width=\dimexpr\textwidth\relax,
+	enlarge left by=-2mm,
+	boxsep=4pt,
+	arc=0pt,outer arc=0pt,
+}
 
-\usepackage{color}
-\definecolor{mygrey}{gray}{0.75}
-\textheight=9.75in
-\raggedbottom
+\urlstyle{same}
 
+\raggedright
 \setlength{\tabcolsep}{0in}
-\newcommand{\isep}{-2 pt}
-\newcommand{\lsep}{-0.5cm}
-\newcommand{\psep}{-0.6cm}
-\renewcommand{\labelitemii}{$\circ$}
 
-\pagestyle{empty}
-%-----------------------------------------------------------
-%Custom commands
-\newcommand{\resitem}[1]{\item #1 \vspace{-2pt}}
-\newcommand{\resheading}[1]{{\small \colorbox{mygrey}{\begin{minipage}{0.975\textwidth}{\textbf{#1 \vphantom{p\^{E}}}}\end{minipage}}}}
-\newcommand{\ressubheading}[3]{
-\begin{tabular*}{6.62in}{l @{\extracolsep{\fill}} r}
-	\textsc{{\textbf{#1}}} & \textsc{\textit{[#2]}} \\
-\end{tabular*}\vspace{-8pt}}
-%-----------------------------------------------------------
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-7pt}]
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item{
+    \textbf{#1}{\hspace{0.5mm}#2 \vspace{-0.5mm}}
+  }
+}
+
+\newcommand{\resumePOR}[3]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1}\hspace{0.3mm}#2 & \textit{\small{#3}} 
+    \end{tabular*}
+    \vspace{-2mm}
+}
+
+\newcommand{\resumeSubheading}[4]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.98\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & \textit{\footnotesize{#4}} \\
+        \textit{\footnotesize{#3}} &  \footnotesize{#2}\\
+    \end{tabular*}
+    \vspace{-2.4mm}
+}
+
+\newcommand{\resumeProject}[4]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.98\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & \textit{\footnotesize{#3}} \\
+        \footnotesize{\textit{#2}} & \footnotesize{#4}
+    \end{tabular*}
+    \vspace{-2.4mm}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+% \renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\labelitemi}{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*,labelsep=0mm]}
+\newcommand{\resumeHeadingSkillStart}{\begin{itemize}[leftmargin=*,itemsep=1.7mm, rightmargin=2ex]}
+\newcommand{\resumeItemListStart}{\begin{justify}\begin{itemize}[leftmargin=3ex, rightmargin=2ex, noitemsep,labelsep=1.2mm,itemsep=0mm]\small}
+
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}\vspace{2mm}}
+\newcommand{\resumeHeadingSkillEnd}{\end{itemize}\vspace{-2mm}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\end{justify}\vspace{-2mm}}
+\newcommand{\cvsection}[1]{%
+\vspace{2mm}
+\begin{tcolorbox}
+    \textbf{\large #1}
+\end{tcolorbox}
+    \vspace{-4mm}
+}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}%
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
+\newcolumntype{C}{>{\centering\arraybackslash}X}%
+%---- End of Packages and Functions ------
+
+%-------------------------------------------
+%%%%%%  CV STARTS HERE  %%%%%%%%%%%
+%%%%%% DEFINE ELEMENTS HERE %%%%%%%
+\newcommand{\name}{Ajay Kumar M} % Your Name
+\newcommand{\course}{Electronics and Communication Engineering       } % Your Program
+%%%\newcommand{\roll}{xxxxxxx} Your Roll No%%%%
+\newcommand{\phone}{7483780514} % Your Phone Number
+%\newcommand{\emaila}{youremail@email.com} %Email 1
+\newcommand{\emailb}{ajaykumarm377@gmail.com} %Email 2
+
+
+
 
 \begin{document}
-\hspace{0.5cm}\\[-0.2cm]
+\fontfamily{cmr}\selectfont
+%----------HEADING-----------------
+\begin{flushleft}
+\makebox[\linewidth]{%
+  \begin{tabularx}{\linewidth}{@{}lXr@{}}
+    \textbf{\Large \name} &
+    &
+    {\faPhone}~+91-\phone \\
+    \course &
+    &
+    {\faEnvelope}~\href{mailto:\emailb}{\emailb} \\
+    {Bachelor of Engineering} &
+    &
+    {\faGithub}~\href{https://github.com/Ajay-377}{GitHub Profile} \\
+    {Sahyadri College of Engineering and Management, Mangaluru} &
+    &
+    {\faLinkedin}~\href{https://www.linkedin.com/in/ajay-kumar-a3585126a}{LinkedIn Profile} \\
+  \end{tabularx}
+}
+\end{flushleft}
+% \parbox{3.0cm}{%
+% \flushright \includegraphics[width=2cm,clip]{nitp_logo.png}
+% }
 
-{\Large\textbf{AJAY KUMAR M}} \\\\
-\indent Bachelor of Engineering \\
-\indent Electronics and Communication Engineering  \\
-\indent Sahyadri College of Engineering and Management, Mangaluru\\
-\indent Email-id : \textbf{ajaykumarm377@gmail.com} \\
-\indent Mobile No.: \textbf{+91 7483780514} \\
+
+%-----------------TECHNICAL SKILLS--------------
+
+
+\section{\textbf{Technical Skills and Interests}}
+ \begin{itemize}[leftmargin = 0.05in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Java, c++, Embedded C, Verilog.} \\
+     %\textbf{Frameworks}{: Spring Boot, Flask, Express.js.} \\
+     \textbf{Softwares}{: Matlab, Cadence Virtuoso, Autodesk Eagle, Eclipse, LTspice.}\\
+    % \textbf{Cloud/Databases}{:AWS, MongoDB, MySQL.} \\
+   
+     %\textbf{Libraries \& Tools}{: Kubernetes, Prometheus, Grafana, Docker, Socket.IO, Postman} \\
+      \textbf{Soft Skills}{: Collaboration, Leadership, Event Management.} \\
+     \textbf{Areas of Interest}{: Embedded systems, VLSI Design, PCB Design and Circuit simulation, Robotics  .} \\
+    }}
+ \end{itemize}
+ \vspace{-16pt}
 
 
 
-\resheading{\textbf{ACADEMIC DETAILS} }\\[\lsep]
-\\ \\
-%\begin{table}[ht!]
-%\begin{center}
-\indent \begin{tabular}{ l @{\hskip 0.15in} l @{\hskip 0.15in} l @{\hskip 0.15in} l @{\hskip 0.15in} l }
-\hline
-\textbf{Examination} & \textbf{Board} & \textbf{Institute} & \textbf{Year} & \textbf{CPI/\%} \\
-\hline
-Pre-University Specialization:\,\, & \textit{PCMC} \\
-Pre-University Graduation &  & SCEM & 2014 & 8.0 \\
-UnderGraduate Specialization: & \textit{Computer Engineering} \\
-Graduation & DAVV, Indore & IET-DAVV, Indore & 2012 & 76.5\\
-\hline
-\end{tabular}
-%\end{center}
-%\end{table}
-\\ \\
 
-\resheading{\textbf{FIELDS OF INTEREST} }\\[\lsep]
-\begin{itemize}
-\item \noindent Wireless Network and Network Security, Another one, a third one
-\end{itemize}
+%-----------EDUCATION-----------
+\section{\textbf{Education}}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Sahyadri College of Engineering and Management, Mangaluru} {}
+      {Bachelor of Engineering in Electronics and Communication Engineering \& Engineering}{2026}
+    \resumeSubheading
+      {St Aloysius Pre-University College, Mangaluru}{}
+      {Karnataka Secondary Education Examination Board, Karnataka}{2022}
+    \resumeSubheading
+      {BGS High School, Mangaluru}{}
+      {Karnataka Secondary Education Examination Board}{2020}
+  \resumeSubHeadingListEnd
+\vspace{-5.5mm}
+%
 
-\resheading{\textbf{TECHNICAL SKILLS} }\\[\lsep]
-\begin{itemize}
-\item \noindent \textbf{Languages} (C, C++, Java),\textbf{Database} (MySQL) \textbf{Script} (Python, Shell, Perl, R), \textbf{Tools} (Eclipse, \LaTeX, Gnuplot, Rstudio).
-\end{itemize}
 
-\resheading{\textbf{MAJOR PROJECTS AND SEMINAR} }\\[\lsep]
-\begin{itemize}
-\item \textbf{Media Access Control Controling
-} (Research Project) \\
- \emph{(Guide:Prof. Hubert F.
-, May'13 - till date)} \\[-0.6cm]
-	\begin{itemize}\itemsep \isep
-	\item Objective :Performance analysis of HTTP web browsing traffic.
-.
-	\item Performance analysis will help in comparing different MAC protocols based on different network sce-
-narios.
 
-	\item Studied various papers related to different MAC protocols and now working on improving simulations.
+% -----------EXPERIENCE-----------------
+%\section{\textbf{Work Experience}}
+%  \resumeSubHeadingListStart
+ %   \resumeSubheading
+  %%% \resumeItemListStart
+    %\item {Technologies used: AWS Lambda, S3, ECS, Flask, ECR, Cognito, DynamoDB .}
+    %\item {I built and deployed applications using several AWS services inluding Lambda, DynamoDB, S3, ECR and ECS. I have also worked on Cognito, SNS and SQS for building the overall system..}
+    % \item{Frontend done using bootstrap increasing user likability by 40\% and Backend done using NodeJS and MongoDB for storing and managing login functionalities.}
+    %\resumeItemListEnd
+    
+  %  \vspace{-3.0mm}
+    
+    % \resumeSubheading
+    %   {Company Name}{City}
+    %   {Your Role}{Event dates}
+    %   \vspace{-2.0mm}
+    %   \resumeItemListStart
+    % \item {Work description line 1}
+    % \item {Work description line 2}
+    % \resumeItemListEnd
+      
+  \resumeSubHeadingListEnd
+\vspace{-2.0mm}
 
-	\end{itemize}
 
-\item \textbf{Second Item.
-} (M. Tech. Seminar) \\
- \emph{(Guide: Prof. John Doe
-, Jan'14 - Aug'14)} \\[-0.6cm]
-	\begin{itemize}\itemsep \isep
-	\item First subitem.
-	\item Second subitem.
-	\end{itemize}
-\end{itemize}
 
-\resheading{\textbf{STRENGTHS} }\\[\lsep]
-\begin{itemize}
-\item \noindent Positive Attitude, Social Interaction, Hardworking.
-\end{itemize}
+%-----------PROJECTS-----------------
+\section{\textbf{Projects}}
+\resumeSubHeadingListStart
 
-\resheading{\textbf{INTEREST AND HOBBIES} }\\[\lsep]
-\begin{itemize}
-\item \noindent Solving Puzzles.
-\item \noindent Playing Chess.
+    \resumeProject
+      {Multi Spectrum Human detection and Autonomous Maritime Rescue System} %\href{https://github.com/Shayaan-Fayaz/HH-platform}{\faExternalLink}} %Project Name
+      {A system which detects and rescues people in shores and water bodies by usage of an autonomous boat.} %Project Name, Location Name
+      {} %Event Dates
 
-\end{itemize}
+      \resumeItemListStart
+        \item {Tools \& technologies used: Yolo V8, Ultraltics, Raspberry pi library, Python Library.}
+        \item {The system is divided into a detection system on-shore which communicates with an autonomous boat in the water body to identify and reach people approaching danger and bring the to shore.}
+        
+    \resumeItemListEnd
 
+   
+
+
+    \resumeProject
+      {UART-Based Digital Car Dashboard with Web Interface} %\href{https://github.com/Shayaan-Fayaz/dashboard}{\faExternalLink}} %Project Name \newline
+        {Developed a real-time analytics dashboard to track and visualize car data.} %Project Name, Location Name \newline
+        {} %Event Dates
+
+      \resumeItemListStart
+        \item {Tools \& technologies used: Embedded C, STm32, MPU3060, Esp32, Arduino }
+        \item{Used STm32 microcontroller as the receiver and hub for all the sensor data to be collected and the data is being sent to the Esp32 microcontroller which is then displayed in the the webserver interface.}
+    \resumeItemListEnd
+    % \vspace{0mm}
+    \vspace{0mm}
+    
+     
+    
+    
+
+    
+  \resumeSubHeadingListEnd
+\vspace{-8mm}
+
+%------------Certificate----------------
+ \section{\textbf{Certifications / Achievements}}
+ \vspace{-1mm}
+ \resumeSubHeadingListStart
+\resumePOR{Technex' 25: }
+     {Secured 2nd place in Botstacle Challenge held in IIT BHU(Varanasi). \href{https://drive.google.com/file/d/1y82Ae6pAiYwMu0c8OGCTQxCvKH93_F45/view?usp=drivesdk}{\faExternalLink}}
+    
+\resumePOR{Java Concepts: }
+    {Brief introduction to java and its concepts.} %\href{https://drive.google.com/file/d/1qPUsQRnkWAIQLRiFNlNzoDhMyJyKBjpE/view?usp=sharing}{\faExternalLink}}
+    {\textbf{Infosys Springboard}}
+
+
+  % \resumePOR{Database and SQL: }
+ %    {Brief introduction to DBMS and RDBMS concepts. \href{https://drive.google.com/file/d/1qPUsQRnkWAIQLRiFNlNzoDhMyJyKBjpE/view?usp=sharing}{\faExternalLink}}
+  %   {\textbf{Infosys Springboard}}
+ \resumeSubHeadingListEnd
+ \vspace{-5mm}
+
+%-------------------------------------------------
+
+
+%-----------Achievements/ Positions of Responsibility-----------------
+\section{\textbf{Positions of Responsibility}}
+\vspace{-0.4mm}
+\resumeSubHeadingListStart
+\resumePOR{Volunteer, Aerophilia 2023: }
+    % {  \href{https://drive.google.com/drive/folders/1fT6u4Ws_wxgZRm6-z6wk_W2QS4_hyjOG?usp=sharing}{\faExternalLink}}
+    {\textbf Nov 2023}
+
+\resumePOR{Member, Team Challengers: }
+    % {  \href{https://drive.google.com/drive/folders/1fT6u4Ws_wxgZRm6-z6wk_W2QS4_hyjOG?usp=sharing}{\faExternalLink}}
+    {\textbf Oct 2023 - Present}
+% \resumePOR{TechTainment, Incridea 2024} % Award
+%     {  \href{https://drive.google.com/drive/folders/1StXie7laZkOsccxITOGNyI3cHXYEVBbt?usp=sharing}{\faExternalLink}} % Event
+%     {\textbf CodeCrafter, TechX } %Event Year
+% \resumePOR{}{Event Head, Aerophilia 2022 (Techno-Cultural Fest) % Award
+% \href{https://drive.google.com/file/d/1-ZZBy2dXW4rFyE2IzKeMrqD_T5HOALwT/view?usp=sharing}{\faExternalLink}} % Event
+%     {Nov 2022} %Event Year
+% \resumePOR{}{Media Head, Event Head, Synergia 2023 (Tecchnical Event) \href{https://drive.google.com/file/d/1IT9ixADIqQkJyy2wIU7oUnG-2qSI9G-m/view?usp=sharing}{\faExternalLink}} % Event
+%     {Dec 2023} %Event Year
+% \resumePOR{}{Internship Program 2023 for Future batches (Teaching) \href{https://drive.google.com/file/d/1prrFjsHmI91owC0g0t5aUSOURO_8aVSq/view?usp=sharing}{\faExternalLink}} % Event
+%     {Feb 2024} %Event Year
+% \resumePOR{}{Edu-Vitality Hackathon 2024, Bengaluru  \href{https://drive.google.com/file/d/1X-xLUAiv6qcjlIgUKIo4coKdvHF4snNf/view?usp=sharing}{\faExternalLink}} % Event
+%     {All Karnataka Rank 5} %Event Year
+
+    
+% \resumePOR{Achievement } % Award
+%     {description} % Event
+%     {Event dates} %Event Year
+% \resumeSubHeadingListEnd
+% \vspace{-5mm}
+\setlength{\footskip}{4.08003pt}
+%-------------------------------------------
 \end{document}
-
